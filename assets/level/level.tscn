@@ -4,3 +4,4 @@
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_04luw")
+update_interval = 0.1
