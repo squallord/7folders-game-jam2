@@ -23,14 +23,21 @@ func get_head():
 
 func update():
 	get_head().direction = direction
-	print("=== UPDATE STARTED ===")
+	#print("=== UPDATE STARTED ===")
 	for i in range(body.size() - 1, 0, -1):
 		body[i].direction = body[i - 1].position - body[i].position
 		body[i].position += body[i].direction
-		print("i = " + str(i) + " -> position: " + str(body[i].position) + ", direction: " + str(body[i].direction))
+		#print("i = " + str(i) + " -> position: " + str(body[i].position) + ", direction: " + str(body[i].direction))
 	get_head().position += get_head().direction
-	print("=== UPDATE FINISHED ===")
-	print("")
+	#print("=== UPDATE FINISHED ===")
+	#print("")
+	
+func grow(): # append a new body part at the end of the snake
+	var end = body.size() - 1
+	var body_part_position = body[end - 1].position - body[end - 1].direction
+	var body_part_direction = body[end - 1].direction
+	body.append(BodyPart.new(body_part_position, body_part_direction))
+	pass
 
 func _process(delta):
 	if Input.is_action_just_pressed("up"):
