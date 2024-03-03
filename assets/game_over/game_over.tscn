@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbc0jxvyjk4m0"]
+
+[ext_resource type="Script" path="res://assets/game_over/game_over.gd" id="1_m7qrr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oe67r"]
+font_size = 42
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 14
+
+[node name="game_over" type="CanvasLayer"]
+script = ExtResource("1_m7qrr")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_oe67r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryBtn" type="Button" parent="."]
+offset_left = 160.0
+offset_top = 528.0
+offset_right = 256.0
+offset_bottom = 559.0
+text = "Retry"
+
+[node name="QuitBtn" type="Button" parent="."]
+offset_left = 288.0
+offset_top = 528.0
+offset_right = 384.0
+offset_bottom = 559.0
+text = "Quit"
+
+[connection signal="pressed" from="RetryBtn" to="." method="_on_retry_btn_pressed"]
+[connection signal="pressed" from="QuitBtn" to="." method="_on_quit_btn_pressed"]

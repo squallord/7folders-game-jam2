@@ -4,6 +4,7 @@ extends Node
 @export var tile_matrix_height : int = 50
 @export var player_start_position : Vector2 = Vector2(20, 40)
 @export var update_interval : float = 0.5  # Update every 2 seconds
+@export var game_over_timeout : float = 1.0
 
 const _tile_scene = preload("res://assets/tile/tile.tscn")
 const _player_scene = preload("res://assets/player/player.tscn")
@@ -114,6 +115,9 @@ func _update():
 	if not _game_over:
 		_player.update()
 		_check_collisions()
+	else:
+		await get_tree().create_timer(game_over_timeout).timeout
+		get_tree().change_scene_to_file("res://assets/game_over/game_over.tscn")
 
 func _process(delta):
 	_counter += delta
