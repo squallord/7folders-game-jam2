@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @export var tile_matrix_width : int = 25
 @export var tile_matrix_height : int = 50
@@ -9,9 +9,11 @@ extends Node
 const _tile_scene = preload("res://assets/tile/tile.tscn")
 const _player_scene = preload("res://assets/player/player.tscn")
 const _fruit_scene = preload("res://assets/fruit/fruit.tscn")
+const _controller_scene = preload("res://assets/controller/touch_controller.tscn")
 
 var _tile_matrix = []
 var _player
+var _controller
 var _fruit
 var _counter : float = 0.0
 var _free_positions = []
@@ -19,7 +21,7 @@ var _score = 0
 var _game_over : bool = false
 
 func _ready():
-	var tile_offset = 16
+	var tile_offset = 16 * 2
 	for i in range(tile_matrix_height):
 		for j in range(tile_matrix_width):
 			var tile = _tile_scene.instantiate()
@@ -28,8 +30,16 @@ func _ready():
 			_tile_matrix.append(tile)
 	
 	_player = _player_scene.instantiate()
+	_controller = _controller_scene.instantiate()
+	_controller.position = Vector2(1080, 1920) - 180 * Vector2.ONE
 	self.add_child(_player)
+	self.add_child(_controller)
 	reset_game()
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		_controller.position = get_global_mouse_position()
+		print("mouse clicked!")
 
 func reset_game():
 	_player._start_position = player_start_position
